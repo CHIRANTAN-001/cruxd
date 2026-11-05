@@ -2,7 +2,7 @@
 
 A distributed job scheduler written in Go. Cruxd runs one-time and cron jobs across many nodes, delivers each job to an HTTPS endpoint, and keeps working when any node crashes.
 
-> **Status:** early development, Phase 0 of 14 (project skeleton). The architecture below is the planned design. Each part will be built and tested in turn.
+> **Status:** early development, Phase 0 of 14 (foundations). Done so far: the `cruxd` entrypoint with modes, JSON logging and graceful shutdown, and a config package that loads, validates and safely logs settings from environment variables. The architecture below is the planned design. Each part will be built and tested in turn.
 
 ## Design goals
 
@@ -104,7 +104,8 @@ Failed jobs retry with exponential backoff and jitter, then move to a dead-lette
 ## Running locally
 
 ```sh
-go run ./cmd/cruxd
+go run ./cmd/cruxd all        # or: api | scheduler | worker | ledger
+go test ./...
 ```
 
-Setup with docker-compose (PostgreSQL, Kafka, Redis) and a Makefile is part of Phase 0 and coming next.
+Stop it with Ctrl+C. Setup with docker-compose (PostgreSQL, Kafka, Redis) and a Makefile is part of Phase 0 and coming next.
